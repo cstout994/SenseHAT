@@ -4,8 +4,9 @@ sense = SenseHat()
 sense.clear()
 
 r = (255,0,0)
-
 b = (0,0,0)
+w = (255,255,255)
+g = (0,255,0)
 
 maze = [[r,r,r,r,r,r,r,r],
         [r,b,b,b,b,b,b,r],
@@ -13,7 +14,7 @@ maze = [[r,r,r,r,r,r,r,r],
         [r,b,r,b,r,r,r,r],
         [r,b,b,b,b,b,b,r],
         [r,b,r,r,r,r,b,r],
-        [r,b,b,r,b,b,b,r],
+        [r,b,b,r,b,b,g,r],
         [r,r,r,r,r,r,r,r]]
 
 game_over = False
@@ -44,8 +45,13 @@ while game_over == False:
     pitch = o["pitch"]
     roll = o["roll"]
     x,y = move_marble(pitch,roll,x,y)     
+    if maze[y][x] == g:   # My winning marker was green
+      sense.show_message("Win!")
+      game_over = True
     maze[y][x] = w
     sense.set_pixels(sum(maze,[]))
+    sleep(0.05)
+    maze[y][x] = b
 while not game_over:
     pitch = sense.get_orientation()['pitch']
     roll = sense.get_orientation()['roll']
@@ -54,11 +60,3 @@ while not game_over:
     sense.get_pixels(sum(maze,[]))
     sleep(0.05)
     maze[y][x] = b
-from sense_hat import SenseHat
-
-sense = SenseHat()
-sense.clear()
-              
-r = (255,0,0)
-b = (0,0,0)
-w = (255,255,255)
