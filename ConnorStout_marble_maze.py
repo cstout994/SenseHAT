@@ -51,10 +51,10 @@ while game_over == False:
     o = sense.get_orientation()
     pitch = o["pitch"]
     roll = o["roll"]
-    print("pitch {0} roll {1} yaw {2}".format(pitch, roll, yaw))
+    yaw = o["yaw"]
     x,y = move_marble(pitch,roll,x,y)     
     maze[y][x] = w
-    if maze[y][x] == g:   # My winning marker was green
+    if maze[y][x] == g:   
       sense.show_message("Win!")
       game_over = True
     maze[y][x] = w
@@ -64,7 +64,7 @@ while game_over == False:
 while not game_over:
     pitch = sense.get_orientation()['pitch']
     roll = sense.get_orientation()['roll']
-    print("pitch {0} roll {1} yaw {2}".format(pitch, roll, yaw)) 
+    yaw = sense.get_orientation()['yaw']
     x,y = move_marble(pitch,roll,x,y)
     maze[y][x] = w
     sense.get_pixels(sum(maze,[]))
